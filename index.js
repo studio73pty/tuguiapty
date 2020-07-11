@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt-nodejs');
 const home = require('./controllers/Home');
 const registro = require('./controllers/Registro');
 const inicioSesion = require('./controllers/IniciarSesion');
+const borrarUsuario = require('./controllers/EliminarUsiario');
 
 // Creando conexion a la base de datos
 const db = knex({
@@ -40,6 +41,12 @@ app.post('/registro', (req, res) =>  { registro.handleRegistro(req, res, db, bcr
 
 //Iniciar Sesion
 app.post('/iniciar-sesion', (req, res) =>  { inicioSesion.handleInicioSesion(req, res, db, bcrypt) });
+
+
+// Borrar Perfil
+app.delete('/borrar-usuario/:id', (req, res) => {borrarUsuario.handleEliminarUsuario(req, res, db)});
+
+
 
 const port = process.env.PORT || 3000;
 

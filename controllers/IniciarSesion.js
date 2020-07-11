@@ -19,7 +19,7 @@ const handleInicioSesion = (req, res, db, bcrypt) =>{
             res.status(400).json('credenciales incorrectas')
         }
     })
-    .catch(err => res.status(400).json('problemas con la base de datos'))
+    .catch(err => res.status(400).json('problemas con la base de datos: ' + err))
     }
 
 module.exports = {

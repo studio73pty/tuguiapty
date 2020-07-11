@@ -5,17 +5,16 @@ const handleRegistro = (req, res, db, bcrypt) => {
         return res.status(400).json('por favor llena todos los campos');
     }
 
-    db.transaction(trx => {
-        trx.insert({
-            email: email,
-            usuario: usuario,
-            hash: hash
-        })
-        .into('registro')
+   // res.json(email + ' ' + usuario + ' ' + password)
+
+    db('registro').insert({
+        email,
+        usuario,
+        hash
+    })
         .then(res.status(200).json('usuario registrado exitosamente'))
     
-    })
-    .catch(err => res.status(400).json('no se pudo registrar'));
+    .catch(err => res.status(400).json('no se pudo registrar: ' + err));
 }
 
 
