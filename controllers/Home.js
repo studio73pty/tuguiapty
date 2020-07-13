@@ -1,5 +1,5 @@
 const handleHome = (req, res, db) => {
-    db.select().table('registro')
+    db.select().table('empresas')
     .then(response => {
         res.json(response);
     })
