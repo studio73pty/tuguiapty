@@ -190,7 +190,7 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
   const insert = (str, index, value) => {
     safeUrl = str.substr(0, index) + value + str.substr(index);
 }
-
+const fecha = new Date();
 
   const { 
     titulo,contenido 
@@ -216,6 +216,7 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
                db('blog').insert({
                 titulo,
                 contenido, 
+                fecha,
                 image: safeUrl   
              }).then(res.status(200).json('post agregado'))
                // id: urls[0].id
@@ -256,7 +257,7 @@ if (req.method === 'PATCH') {
         insert(unsafeUrl, 4, 's');
 
           db('blog').where({id: id}).update({             
-            imagen: safeUrl
+            image: safeUrl
            // id: urls[0].id
 
         })
