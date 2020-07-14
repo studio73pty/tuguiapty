@@ -7,14 +7,14 @@ const knex = require('knex');
 const bcrypt = require('bcrypt-nodejs');
 
 // LLamando a los controladores
-const home = require('./controllers/Home');
+const buscarEmpresas = require('./controllers/BuscarEmpresas');
 const registro = require('./controllers/Registro');
 const inicioSesion = require('./controllers/IniciarSesion');
 const borrarEmpresa = require('./controllers/EliminarEmpresa');
 const modificarEmpresa = require('./controllers/ModificarEmpresa');
 const modificarPost = require('./controllers/ModificarPost');
 const borrarPost = require('./controllers/EliminarPost');
-
+const buscarBlog = require('./controllers/BuscarPosts');
 
 
 // Llamando a Uploads y Cloudinary
@@ -43,7 +43,7 @@ app.use(cors());
 
 app.get('/', (req, res) => {res.json('estoy vivo!')});
 
-app.get('/home', (req, res) => { home.handleHome(req, res, db) });
+app.get('/home-empresas', (req, res) => { buscarEmpresas.handleBuscarEmpresas(req, res, db) });
 
 //Registro
 app.post('/registro', (req, res) =>  { registro.handleRegistro(req, res, db, bcrypt) });

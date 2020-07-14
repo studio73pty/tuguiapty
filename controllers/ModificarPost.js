@@ -4,7 +4,7 @@ const handleModificarPost = (req, res, db) =>{
         titulo, contenido 
           } = req.body;
 
-               db('empresas').where({ id: id }).update({     
+               db('blog').where({ id: id }).update({     
                 titulo,
                 contenido
              }).then(res.status(200).json('post actualizado'))
