@@ -12,7 +12,8 @@ const registro = require('./controllers/Registro');
 const inicioSesion = require('./controllers/IniciarSesion');
 const borrarEmpresa = require('./controllers/EliminarEmpresa');
 const modificarEmpresa = require('./controllers/ModificarEmpresa');
-const modificarPost = require('./controllers/ModificarPost.js')
+const modificarPost = require('./controllers/ModificarPost');
+const borrarPost = require('./controllers/EliminarPost');
 
 
 
@@ -132,7 +133,7 @@ app.post('/empresa', (req, res) => {
 app.patch('/modificar-empresa/:id', (req, res) => {modificarEmpresa.handleModificarEmpresa(req, res, db)});
 
 //Modificar imagen Producto
-app.use('/modificar-imagen/:id', upload.array('image'), async(req, res) => {
+app.use('/modificar-imagen-empresa/:id', upload.array('image'), async(req, res) => {
   const uploader = async (path) => await cloudinary.uploads(path, 'Tu Guia PTY');
   let safeUrl = '';
   const insert = (str, index, value) => {
@@ -178,6 +179,9 @@ app.delete('/borrar-empresa/:id', (req, res) => {borrarEmpresa.handleEliminarEmp
 
 
 //-------------------- Endpoints Blog
+
+//Buscar todos los Posts
+app.get('/home-blog', (req, res) => {buscarBlog.handleHomeBlog(req, res, db)});
 
 //Agregar Blog Post
 app.post('/agregar-post',upload.array('image'), async(req, res) =>{
@@ -225,6 +229,50 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
 
 //Modificar Post
 app.patch('/modificar-post/:id', (req, res) => {modificarPost.handleModificarPost(req, res, db)});
+
+//Modificar Imagen Blog
+app.use('/modificar-imagen-blog/:id', upload.array('image'), async(req, res) => {
+  const uploader = async (path) => await cloudinary.uploads(path, 'Tu Guia PTY');
+  let safeUrl = '';
+  const insert = (str, index, value) => {
+    safeUrl = str.substr(0, index) + value + str.substr(index);
+}
+const { id } = req.params;
+if (req.method === 'PATCH') {
+    const urls = [];
+    const files = req.files;
+
+    for(const file of files) {
+        const { path } = file;
+
+        const newPath = await uploader(path);
+
+        urls.push(newPath);
+
+        fs.unlinkSync(path);
+    
+        };
+        const unsafeUrl = urls[0].url;
+        insert(unsafeUrl, 4, 's');
+
+          db('blog').where({id: id}).update({             
+            imagen: safeUrl
+           // id: urls[0].id
+
+        })
+           .then(console.log)           
+        
+    res.status(200).json('exito');
+} else {
+    res.status(405).json({
+        err: "No se pudo subir la imagen"
+    })
+}
+
+})
+
+//Borrar Post
+app.delete('/borrar-post/:id', (req, res) => {borrarPost.handleEliminarPost(req, res, db)});
 
 const port = process.env.PORT || 3000;
 
