@@ -132,7 +132,7 @@ app.post('/empresa', (req, res) => {
 //Modificar empresa 
 app.patch('/modificar-empresa/:id', (req, res) => {modificarEmpresa.handleModificarEmpresa(req, res, db)});
 
-//Modificar imagen Producto
+//Modificar imagen empresa
 app.use('/modificar-imagen-empresa/:id', upload.array('image'), async(req, res) => {
   const uploader = async (path) => await cloudinary.uploads(path, 'Tu Guia PTY');
   let safeUrl = '';
