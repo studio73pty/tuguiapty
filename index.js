@@ -15,6 +15,7 @@ const modificarEmpresa = require('./controllers/ModificarEmpresa');
 const modificarPost = require('./controllers/ModificarPost');
 const borrarPost = require('./controllers/EliminarPost');
 const buscarBlog = require('./controllers/BuscarPosts');
+const buscarEmpresaId = require('./controllers/BuscarEmpresa');
 
 
 // Llamando a Uploads y Cloudinary
@@ -52,8 +53,10 @@ app.post('/registro', (req, res) =>  { registro.handleRegistro(req, res, db, bcr
 app.post('/iniciar-sesion', (req, res) =>  { inicioSesion.handleInicioSesion(req, res, db, bcrypt) });
 
 
-
 //------------------- Endpoints de empresas
+
+//Buscar empresa por ID
+app.get('/buscar-empresa/:id', (req, res) =>{ buscarEmpresaId.handleBuscarEmpresa(req, res, db) });
 
 
 //Agregar Empresa
@@ -67,7 +70,7 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
 
   const { 
     categoria, nombre, descripcion,
-    direccion, telefono, email, website 
+    direccion, mapa, telefono, email, website 
       } = req.body;
 
       if (req.method === 'POST') {
@@ -94,6 +97,7 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
                 direccion,
                 telefono,
                 email, 
+                mapa,
                 website,   
                 imagen: safeUrl   
              }).then(res.status(200).json('producto agregado'))
@@ -112,6 +116,7 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
 app.post('/empresa', (req, res) => {
   const{
       categoria, nombre, descripcion,
+      mapa,
       direccion, telefono, email, website 
         } = req.body;
 
@@ -122,6 +127,7 @@ app.post('/empresa', (req, res) => {
           direccion,
           telefono,
           email, 
+          mapa,
           website 
        })
        .then(res.status(200).json('empresa agregada'))
@@ -182,6 +188,8 @@ app.delete('/borrar-empresa/:id', (req, res) => {borrarEmpresa.handleEliminarEmp
 
 //Buscar todos los Posts
 app.get('/home-blog', (req, res) => {buscarBlog.handleHomeBlog(req, res, db)});
+
+//Buscar post por ID
 
 //Agregar Blog Post
 app.post('/agregar-post',upload.array('image'), async(req, res) =>{

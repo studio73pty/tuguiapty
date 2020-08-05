@@ -10,6 +10,7 @@ const handleModificarEmpresa = (req, res, db) =>{
                 nombre,
                 descripcion,
                 direccion,
+                mapa,
                 telefono,
                 email, 
                 website 
