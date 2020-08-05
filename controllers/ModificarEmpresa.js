@@ -2,6 +2,7 @@ const handleModificarEmpresa = (req, res, db) =>{
     const { id } = req.params;
     const{
         categoria, nombre, descripcion,
+        mapa,
         direccion, telefono, email, website 
           } = req.body;
 
@@ -14,7 +15,7 @@ const handleModificarEmpresa = (req, res, db) =>{
                 telefono,
                 email, 
                 website 
-             }).then(res.status(200).json('producto actualizado'))
+             }).then(res.status(200).json('empresa actualizada'))
           
             //  .catch(err => res.status(400).json(err));
 

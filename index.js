@@ -16,6 +16,7 @@ const modificarPost = require('./controllers/ModificarPost');
 const borrarPost = require('./controllers/EliminarPost');
 const buscarBlog = require('./controllers/BuscarPosts');
 const buscarEmpresaId = require('./controllers/BuscarEmpresa');
+const buscarPostId = require('./controllers/BuscarPost');
 
 
 // Llamando a Uploads y Cloudinary
@@ -185,6 +186,9 @@ app.delete('/borrar-empresa/:id', (req, res) => {borrarEmpresa.handleEliminarEmp
 
 
 //-------------------- Endpoints Blog
+
+//Buscar post por ID
+app.get('/buscar-post/:id', (req, res) => { buscarPostId.handleBuscarPost(req, res, db) })
 
 //Buscar todos los Posts
 app.get('/home-blog', (req, res) => {buscarBlog.handleHomeBlog(req, res, db)});
