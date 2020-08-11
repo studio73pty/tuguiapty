@@ -203,10 +203,11 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
   const insert = (str, index, value) => {
     safeUrl = str.substr(0, index) + value + str.substr(index);
 }
-const fecha = new Date();
 
   const { 
-    titulo,contenido 
+    titulo,
+    fecha,
+    contenido 
       } = req.body;
 
       if (req.method === 'POST') {
