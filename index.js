@@ -71,6 +71,7 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
 
   const { 
     categoria, nombre, descripcion,
+    zona,
     direccion, mapa, telefono, email, website 
       } = req.body;
 

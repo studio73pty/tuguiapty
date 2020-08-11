@@ -2,7 +2,7 @@ const handleModificarEmpresa = (req, res, db) =>{
     const { id } = req.params;
     const{
         categoria, nombre, descripcion,
-        mapa,
+        mapa, zona,
         direccion, telefono, email, website 
           } = req.body;
 
@@ -12,6 +12,7 @@ const handleModificarEmpresa = (req, res, db) =>{
                 descripcion,
                 direccion,
                 mapa,
+                zona,
                 telefono,
                 email, 
                 website 
