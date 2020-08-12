@@ -97,6 +97,7 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
                 nombre,
                 descripcion,
                 direccion,
+                zona,
                 telefono,
                 email, 
                 mapa,
