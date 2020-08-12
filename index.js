@@ -70,9 +70,10 @@ app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
 
 
   const { 
-    categoria, nombre, descripcion,
-    zona,
-    direccion, mapa, telefono, email, website 
+    categoria, nombre,
+    descripcion,  zona,
+    direccion, mapa, 
+    telefono, email, website 
       } = req.body;
 
       if (req.method === 'POST') {
@@ -205,9 +206,11 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
     safeUrl = str.substr(0, index) + value + str.substr(index);
 }
 
+const fecha = new Date();
+
   const { 
     titulo,
-    fecha,
+    intro,
     contenido 
       } = req.body;
 
@@ -231,6 +234,7 @@ app.post('/agregar-post',upload.array('image'), async(req, res) =>{
                db('blog').insert({
                 titulo,
                 contenido, 
+                intro,
                 fecha,
                 image: safeUrl   
              }).then(res.status(200).json('post agregado'))
