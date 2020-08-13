@@ -17,6 +17,7 @@ const borrarPost = require('./controllers/EliminarPost');
 const buscarBlog = require('./controllers/BuscarPosts');
 const buscarEmpresaId = require('./controllers/BuscarEmpresa');
 const buscarPostId = require('./controllers/BuscarPost');
+const buscarEmpresasCategoria = require('./controllers/BuscarEmpresaCategoria');
 
 
 // Llamando a Uploads y Cloudinary
@@ -59,6 +60,7 @@ app.post('/iniciar-sesion', (req, res) =>  { inicioSesion.handleInicioSesion(req
 //Buscar empresa por ID
 app.get('/buscar-empresa/:id', (req, res) =>{ buscarEmpresaId.handleBuscarEmpresa(req, res, db) });
 
+app.get('/buscar-empresas-categoria', (req, res) => { buscarEmpresasCategoria.handleBuscarPorCat(req, res, db) });
 
 //Agregar Empresa
 app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
