@@ -60,7 +60,7 @@ app.post('/iniciar-sesion', (req, res) =>  { inicioSesion.handleInicioSesion(req
 //Buscar empresa por ID
 app.get('/buscar-empresa/:id', (req, res) =>{ buscarEmpresaId.handleBuscarEmpresa(req, res, db) });
 
-app.get('/buscar-empresas-categoria', (req, res) => { buscarEmpresasCategoria.handleBuscarPorCat(req, res, db) });
+app.post('/buscar-empresas-categoria', (req, res) => { buscarEmpresasCategoria.handleBuscarPorCat(req, res, db) });
 
 //Agregar Empresa
 app.use('/agregar-empresa', upload.array('image'), async(req, res) => {
